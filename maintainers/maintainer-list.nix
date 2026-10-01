@@ -1393,6 +1393,7 @@
     github = "AlexCaswen";
     githubId = 142174066;
     name = "AlexCaswen";
+  };
   alexchapman = {
     email = "alex@farfromthere.net";
     github = "AJChapman";
