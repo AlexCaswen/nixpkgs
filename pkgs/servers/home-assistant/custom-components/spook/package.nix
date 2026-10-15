@@ -7,13 +7,13 @@
 buildHomeAssistantComponent rec {
   owner = "frenck";
   domain = "spook";
-  version = "5.5.1";
+  version = "5.9.0";
 
   src = fetchFromGitHub {
     inherit owner;
     repo = domain;
     tag = "v${version}";
-    hash = "sha256-FT8hpWz3pv63hjUr/kiIJOzT7z/6tclj7CZ2XpQ2JYY=";
+    hash = "sha256-VpA3CAvJwHPf2CMc6jGfPkh+JK2FjFCmXZ0oZa9H/I0=";
   };
 
   patches = [ ./remove-sub-integration-symlink-hack.patch ];

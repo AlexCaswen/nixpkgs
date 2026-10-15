@@ -1,6 +1,7 @@
 import json
 import logging
 import os
+import re
 import sys
 import textwrap
 import uuid
@@ -47,9 +48,6 @@ SWITCH_TO_CONFIGURATION_CMD_PREFIX: Final = [
     "NIXOS_NO_CHECK",
     "--collect",
     "--no-ask-password",
-    "--wait",
-    "--verbose",
-    "--output=cat",
     "--quiet",
     "--service-type=exec",
     "--unit=nixos-rebuild-switch-to-configuration",
@@ -288,6 +286,7 @@ def find_file(file: str, nix_flags: Args | None = None) -> Path | None:
 def get_build_image_name(
     build_attr: BuildAttr,
     image_variant: str,
+    specialisation: str | None,
     instantiate_flags: Args | None = None,
 ) -> str:
     path = (
@@ -307,7 +306,7 @@ def get_build_image_name(
               value = import {path};
               set = if builtins.isFunction value then value {{}} else value;
             in
-              set.{build_attr.to_attr("config.system.build.images", image_variant, "passthru", "filePath")}
+              set.{build_attr.to_attr(get_build_image_attr(specialisation), image_variant, "passthru", "filePath")}
             """),
             *dict_to_flags(instantiate_flags),
         ],
@@ -320,6 +319,7 @@ def get_build_image_name(
 def get_build_image_name_flake(
     flake: Flake,
     image_variant: str,
+    specialisation: str | None,
     eval_flags: Args | None = None,
 ) -> str:
     r = run_wrapper(
@@ -329,7 +329,7 @@ def get_build_image_name_flake(
             "eval",
             "--json",
             flake.to_attr(
-                "config.system.build.images", image_variant, "passthru", "filePath"
+                get_build_image_attr(specialisation), image_variant, "passthru", "filePath"
             ),
             *dict_to_flags(eval_flags),
         ],
@@ -341,6 +341,7 @@ def get_build_image_name_flake(
 
 def get_build_image_variants(
     build_attr: BuildAttr,
+    specialisation: str | None,
     instantiate_flags: Args | None = None,
 ) -> ImageVariants:
     path = (
@@ -360,7 +361,7 @@ def get_build_image_variants(
               value = import {path};
               set = if builtins.isFunction value then value {{}} else value;
             in
-              builtins.attrNames set.{build_attr.to_attr("config.system.build.images")}
+              builtins.attrNames set.{build_attr.to_attr(get_build_image_attr(specialisation))}
             """),
             *dict_to_flags(instantiate_flags),
         ],
@@ -372,6 +373,7 @@ def get_build_image_variants(
 
 def get_build_image_variants_flake(
     flake: Flake,
+    specialisation: str | None,
     eval_flags: Args | None = None,
 ) -> ImageVariants:
     r = run_wrapper(
@@ -380,7 +382,7 @@ def get_build_image_variants_flake(
             *FLAKE_FLAGS,
             "eval",
             "--json",
-            flake.to_attr("config.system.build.images"),
+            flake.to_attr(get_build_image_attr(specialisation)),
             "--apply",
             "builtins.attrNames",
             *dict_to_flags(eval_flags),
@@ -390,6 +392,10 @@ def get_build_image_variants_flake(
     j: ImageVariants = json.loads(r.stdout.strip())
     return j
 
+def get_build_image_attr(specialisation: str | None) -> str:
+    if specialisation:
+        return f"config.specialisation.{specialisation}.configuration.system.build.images"
+    return "config.system.build.images"
 
 def get_nixpkgs_rev(nixpkgs_path: Path | None) -> str | None:
     """Get Nixpkgs path as a Git revision.
@@ -734,6 +740,10 @@ def switch_to_configuration(
         cmd = []
     elif os.environ.get("NIXOS_REBUILD_NO_SYSTEMD_RUN"):
         cmd = []
+    elif _systemd_run_supports_output_cat(target_host):
+        cmd = [*cmd, "--wait", "--verbose", "--output=cat"]
+    else:
+        cmd = [*cmd, "--pipe"]
 
     run_wrapper(
         [*cmd, path_to_config / "bin/switch-to-configuration", str(action)],
@@ -751,6 +761,23 @@ def switch_to_configuration(
         # its stdout to our stderr defensively.
         stdout=sys.stderr,
     )
+
+
+# TODO: remove this after release-27.05 and assume systemd 261+
+def _systemd_run_supports_output_cat(target_host: Remote | None) -> bool:
+    """Check whether the target's systemd-run supports --output=cat (systemd 261+)."""
+    try:
+        result = run_wrapper(
+            ["systemd-run", "--version"],
+            remote=target_host,
+            capture_output=True,
+        )
+    except CalledProcessError:
+        logger.debug("systemd-run version detection failed, assuming <261")
+        return False
+
+    match = re.search(r"^systemd (\d+)(?:\D|$)", result.stdout, re.MULTILINE)
+    return match is not None and int(match.group(1)) >= 261
 
 
 def upgrade_channels(

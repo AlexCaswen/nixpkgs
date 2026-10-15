@@ -64,14 +64,14 @@ let
 in
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "liteparse";
-  version = "2.14.6";
+  version = "2.15.1";
   __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "run-llama";
     repo = "liteparse";
     tag = "crates-v${finalAttrs.version}";
-    hash = "sha256-sEZYU41C3AzVJBtDlJFhtU+L1zhx25y1UAF3e5b4kXg=";
+    hash = "sha256-fTW5LhNTaz+Hum3dUlm5MOn0jt7OWP7HGU/pgE5AG0Q=";
   };
 
   postPatch = ''
@@ -106,7 +106,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     tesseract
   ];
 
-  cargoHash = "sha256-LUiE4bAEhsP98LuCp7qhJS+ybg5qSQVdIfF6lDruO+U=";
+  cargoHash = "sha256-cDUZI8ZOtE09f8Ytz/g5ArJsKoNUoRzFIHI9PMxUyEc=";
   cargoBuildFlags = [
     "--package"
     "liteparse"

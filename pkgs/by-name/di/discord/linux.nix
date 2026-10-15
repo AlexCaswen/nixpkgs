@@ -65,7 +65,6 @@
   libglvnd,
   libnotify,
   libxcomposite,
-  libunity,
   libva,
   libxcursor,
   libxext,
@@ -75,6 +74,7 @@
   libxrender,
   libxkbcommon,
   pango,
+  pciutils,
   pipewire,
   libappindicator,
   libdbusmenu,
@@ -117,7 +117,6 @@ let
         libnotify
         libx11
         libxcomposite
-        libunity
         libuuid
         libva
         libxcursor
@@ -132,6 +131,7 @@ let
         libxcb
         libxkbcommon
         pango
+        pciutils
         pipewire
         libxscrnsaver
         libappindicator

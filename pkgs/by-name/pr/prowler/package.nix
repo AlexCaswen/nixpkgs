@@ -8,7 +8,7 @@
 
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "prowler";
-  version = "5.43.0";
+  version = "5.45.0";
   pyproject = true;
 
   __structuredAttrs = true;
@@ -17,7 +17,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
     owner = "prowler-cloud";
     repo = "prowler";
     tag = finalAttrs.version;
-    hash = "sha256-eh3LitCEVqd60rZ+C9yh+3vnTNYlEziQzj7on/rTkIU=";
+    hash = "sha256-zD+dTtbadYXIHINWVMnjwKzG0l6cl1BOP9rBGIbQPy0=";
   };
 
   postPatch = ''
@@ -51,6 +51,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
     azure-mgmt-apimanagement
     azure-mgmt-applicationinsights
     azure-mgmt-authorization
+    azure-mgmt-cognitiveservices
     azure-mgmt-compute
     azure-mgmt-containerregistry
     azure-mgmt-containerservice

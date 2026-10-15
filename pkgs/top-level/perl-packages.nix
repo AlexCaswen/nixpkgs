@@ -17474,6 +17474,9 @@ with self;
       TestNoWarnings
     ];
     propagatedBuildInputs = [ pkgs.zlib ];
+    # -ffast-math makes GCC emit libmvec calls (e.g. _ZGVbN2v_cos), so link libm
+    # explicitly to pull in libmvec through glibc's AS_NEEDED linker script.
+    NIX_LDFLAGS = "-lm";
     makeMakerFlags = [
       "--with-jpeg-includes=${pkgs.libjpeg.dev}/include"
       "--with-jpeg-libs=${pkgs.libjpeg.out}/lib"
@@ -32837,12 +32840,12 @@ with self;
 
   SysVirt = buildPerlModule rec {
     pname = "Sys-Virt";
-    version = "12.6.0";
+    version = "12.7.0";
     src = fetchFromGitLab {
       owner = "libvirt";
       repo = "libvirt-perl";
       tag = "v${version}";
-      hash = "sha256-Na+O1sw5elyDsUutevcJh1WuhVHCBDu5usDx1zme9WI=";
+      hash = "sha256-iGTS/0G5VG8iidwNclpJ/b93Rt2DxrRJxZZH8Fucz8M=";
     };
     nativeBuildInputs = [ pkgs.pkg-config ];
     buildInputs = [

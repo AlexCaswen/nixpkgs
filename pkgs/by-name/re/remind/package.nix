@@ -16,11 +16,11 @@
 
 tcl.mkTclDerivation (finalAttrs: {
   pname = "remind";
-  version = "06.03.04";
+  version = "06.03.06";
 
   src = fetchzip {
     url = "https://dianne.skoll.ca/projects/remind/download/remind-${finalAttrs.version}.tar.gz";
-    hash = "sha256-EIcnNTzBUreqAZK8pEUkwU9l+J07d24pvzFlOJ84Q1o=";
+    hash = "sha256-5x6SbABTQHAu61/Cg0PJgY5k9py/YsrN0bNxEoSSEhI=";
   };
 
   buildInputs = [

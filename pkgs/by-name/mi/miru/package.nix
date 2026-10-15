@@ -14,9 +14,8 @@
 }:
 
 stdenv.mkDerivation (finalAttrs: {
-
   pname = "miru";
-  version = "0.10.0";
+  version = "0.12.0";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -25,7 +24,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "Vaishnav-Sabari-Girish";
     repo = "miru";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-B36ghkX+8w008ZVZ5XOQcu928mVHHK8CTQ+KUdpa5Pc=";
+    hash = "sha256-7bljx2sUXD/Bkj5Ubtf8P5HDpDxnrZvBB8arE2ol0AY=";
   };
 
   nativeBuildInputs = [

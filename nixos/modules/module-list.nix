@@ -302,6 +302,7 @@
   ./programs/oblogout.nix
   ./programs/obs-studio.nix
   ./programs/oddjobd.nix
+  ./programs/onlyoffice.nix
   ./programs/opengamepadui.nix
   ./programs/openvpn3.nix
   ./programs/partition-manager.nix
@@ -353,9 +354,9 @@
   ./programs/tsm-client.nix
   ./programs/turbovnc.nix
   ./programs/udevil.nix
+  ./programs/unifi-endpoint.nix
   ./programs/upki.nix
   ./programs/usbtop.nix
-  ./programs/vellum.nix
   ./programs/vim.nix
   ./programs/virt-manager.nix
   ./programs/vivid.nix
@@ -471,6 +472,7 @@
   ./services/audio/roon-server.nix
   ./services/audio/slimserver.nix
   ./services/audio/snapserver.nix
+  ./services/audio/soloist.nix
   ./services/audio/spotifyd.nix
   ./services/audio/squeezelite.nix
   ./services/audio/tts.nix
@@ -529,12 +531,14 @@
   ./services/continuous-integration/buildbot/worker.nix
   ./services/continuous-integration/buildkite-agents.nix
   ./services/continuous-integration/forgejo-runner.nix
+  ./services/continuous-integration/garm.nix
   ./services/continuous-integration/gitea-actions-runner.nix
   ./services/continuous-integration/github-runners.nix
   ./services/continuous-integration/gitlab-runner/runner.nix
   ./services/continuous-integration/gocd-agent/default.nix
   ./services/continuous-integration/gocd-server/default.nix
   ./services/continuous-integration/hercules-ci-agent/default.nix
+  ./services/continuous-integration/hydra/builder.nix
   ./services/continuous-integration/hydra/default.nix
   ./services/continuous-integration/jenkins/default.nix
   ./services/continuous-integration/jenkins/job-builder.nix
@@ -642,6 +646,7 @@
   ./services/development/turborepo-remote-cache.nix
   ./services/development/vsmartcard-vpcd.nix
   ./services/development/zammad.nix
+  ./services/display-managers/airlock.nix
   ./services/display-managers/cosmic-greeter.nix
   ./services/display-managers/default.nix
   ./services/display-managers/dms-greeter.nix
@@ -945,6 +950,7 @@
   ./services/misc/mediatomb.nix
   ./services/misc/memos.nix
   ./services/misc/metabase.nix
+  ./services/misc/minuspod.nix
   ./services/misc/mollysocket.nix
   ./services/misc/moonraker.nix
   ./services/misc/mqtt2influxdb.nix
@@ -959,6 +965,7 @@
   ./services/misc/nzbhydra2.nix
   ./services/misc/octoprint.nix
   ./services/misc/ollama.nix
+  ./services/misc/ollaya.nix
   ./services/misc/ombi.nix
   ./services/misc/omnom.nix
   ./services/misc/open-webui.nix
@@ -973,7 +980,6 @@
   ./services/misc/pinnwand.nix
   ./services/misc/plex.nix
   ./services/misc/plikd.nix
-  ./services/misc/podgrab.nix
   ./services/misc/polaris.nix
   ./services/misc/portunus.nix
   ./services/misc/pufferpanel.nix
@@ -1664,6 +1670,7 @@
   ./services/video/wivrn.nix
   ./services/wayland/cage.nix
   ./services/wayland/hypridle.nix
+  ./services/wayland/vellum.nix
   ./services/web-apps/actual.nix
   ./services/web-apps/agorakit.nix
   ./services/web-apps/akkoma.nix
@@ -1705,6 +1712,7 @@
   ./services/web-apps/drasl.nix
   ./services/web-apps/drupal.nix
   ./services/web-apps/echoip.nix
+  ./services/web-apps/elk.nix
   ./services/web-apps/engelsystem.nix
   ./services/web-apps/ente.nix
   ./services/web-apps/fediwall.nix
@@ -1776,6 +1784,7 @@
   ./services/web-apps/limesurvey.nix
   ./services/web-apps/linkding.nix
   ./services/web-apps/linkwarden.nix
+  ./services/web-apps/loops-server.nix
   ./services/web-apps/lubelogger.nix
   ./services/web-apps/mainsail.nix
   ./services/web-apps/mastodon.nix

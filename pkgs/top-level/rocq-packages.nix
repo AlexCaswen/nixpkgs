@@ -69,6 +69,7 @@ let
       contribs = lib.recurseIntoAttrs (callPackage ../development/rocq-modules/contribs { });
 
       aac-tactics = callPackage ../development/rocq-modules/aac-tactics { };
+      actris = callPackage ../development/rocq-modules/actris { };
       addition-chains = callPackage ../development/rocq-modules/addition-chains { };
       async-test = callPackage ../development/rocq-modules/async-test { };
       atbr = callPackage ../development/rocq-modules/atbr { };
@@ -259,6 +260,10 @@ let
             version =
               with lib.versions;
               lib.switch self.coq.version [
+                {
+                  case = range "8.19" "9.0";
+                  out = "3.17";
+                }
                 {
                   case = range "8.15" "8.18";
                   out = "3.13.1";

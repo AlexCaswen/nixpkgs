@@ -7,6 +7,7 @@
   pkg-config,
   python3Packages,
   gobject-introspection,
+  chromaprint,
   flac,
   game-music-emu,
   gtk3,
@@ -28,12 +29,12 @@
   withDiscordRPC ? true,
 }:
 let
-  version = "12.0.0";
+  version = "13.0.0";
   src = fetchFromGitHub {
     owner = "Taiko2k";
     repo = "Tauon";
     tag = "v${version}";
-    hash = "sha256-IefyP/sKdalt6HZR8SirFnVP+qZY6U843Jr2OoZW+xU=";
+    hash = "sha256-Mr+MLr8wFW0OSP3wmuPer5cQFJSVHvb/QMUdCyd1UiA=";
   };
 
   lrclib-solver = rustPlatform.buildRustPackage {
@@ -143,6 +144,7 @@ python3Packages.buildPythonApplication {
     "--prefix LD_LIBRARY_PATH : ${
       lib.makeLibraryPath (
         [
+          chromaprint
           game-music-emu
           libayatana-appindicator
           libopenmpt
